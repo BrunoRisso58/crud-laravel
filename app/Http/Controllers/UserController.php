@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -49,7 +49,10 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('user.show', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -60,7 +63,10 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('user.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -72,7 +78,10 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->only('name', 'email');
+        $user = User::find($id);
+        $user->update($data);
+        return redirect()->back();
     }
 
     /**
@@ -83,6 +92,10 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->delete();
+
+        return redirect()->back();
     }
 }

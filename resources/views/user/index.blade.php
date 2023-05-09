@@ -10,7 +10,8 @@
     <body >
         
         <main class="container">
-            <h1>Index</h1>
+            <h1>INDEX</h1>
+            <a type="button" href="{{route('user.create')}}" class="btn btn-primary">NOVO USUÁRIO</a>
 
             <table class="table">
                 <thead>
@@ -18,6 +19,9 @@
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Ver</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +30,19 @@
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>
+                            <a type="button" href="{{route('user.show', $user->id)}}" class="btn btn-success">VER</a>
+                        </td>
+                        <td>
+                            <a type="button" href="{{route('user.edit', $user->id)}}" class="btn btn-warning">EDITAR</a>
+                        </td>
+                        <td>
+                            <form method="post" action="{{route('user.destroy', $user->id)}}">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger">DELETAR</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
