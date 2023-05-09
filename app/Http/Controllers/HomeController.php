@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::get();
+        return view('user.index', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -34,7 +38,7 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
