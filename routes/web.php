@@ -14,10 +14,21 @@ use \App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/usuarios/adicionar', [UserController::class, 'create'])->name('user.create');
-Route::post('/usuarios/adicionar', [UserController::class, 'store'])->name('user.store');
-Route::get('/usuarios', [UserController::class, 'index'])->name('user.index');
-Route::get('/usuario/{id}', [UserController::class, 'show'])->name('user.show'); // the name identifies a route despite the own route value
-Route::get('usuarios/editar/{id}', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/usuario/update/{id}', [UserController::class, 'update'])->name('user.update');
-Route::delete('usuario/delete/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::prefix('usuarios')->name('user.')
+    ->controller(UserController::class)
+    ->middleware(['MyFirstMiddleware:admin'])
+    ->group(function () {
+        Route::get('/adicionar', 'create')->name('create');
+        Route::post('/adicionar', 'store')->name('store');
+        Route::get('/', 'index')->name('index');
+        Route::get('/{user}', 'show')->name('show')->missing(function () { // erro de consulta no banco (não existe o user)
+            return redirect()->route('user.index');
+        });
+        Route::get('/editar/{id}', 'edit')->name('edit');
+        Route::put('/update/{id}', 'update')->name('update');
+        Route::delete('/delete/{id}', 'destroy')->name('destroy');
+});
+
+Route::fallback(function () { // erro de rota não existente
+    return redirect()->route('user.index');
+});
