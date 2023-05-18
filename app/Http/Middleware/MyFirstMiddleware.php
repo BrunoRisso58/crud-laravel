@@ -19,7 +19,7 @@ class MyFirstMiddleware
     {
         $response = $next($request); // resposta da requisição
 
-        if ($this->users->count() > 9) {
+        if ($this->users->count() > 5) {
             return $response;
         }
 

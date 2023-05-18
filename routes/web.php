@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use \App\Http\Controllers\UserController;
 */
 
 Route::prefix('usuarios')->name('user.')
-    ->controller(UserController::class)
+    ->controller(UsersController::class)
     ->middleware(['MyFirstMiddleware:admin'])
     ->group(function () {
         Route::get('/adicionar', 'create')->name('create');

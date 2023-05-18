@@ -7,22 +7,30 @@
 
         <title>Hello, world</title>
     </head>
-    <body >
+    <body>
         
         <main class="container">
             <h1>CREATE</h1>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
             <form method="post" action="{{route('user.store')}}">
                 @csrf
                 <div class="form-group">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" name="name" class="form-control" id="name">
+                    <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email">
+                    <input type="email" name="email" class="form-control" id="email" required>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-primary">ATUALIZAR</button>
+                <div class="form-group">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" name="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">CRIAR</button>
             </form>
             
         </main>
